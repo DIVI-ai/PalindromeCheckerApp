@@ -3,11 +3,19 @@ import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Deque;
-import java.util.LinkedList;
+
 public class PalindromeCheckerApp {
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
 
     public static void main(String[] args) {
-
         // UC1: Welcome Message
         System.out.println("======================================");
         System.out.println("   Welcome to Palindrome Checker App");
@@ -37,6 +45,11 @@ public class PalindromeCheckerApp {
 
         System.out.println("\nUC7: Deque Based Palindrome Check");
         checkPalindromeUsingDeque("level");
+
+
+        System.out.println("\nUC8: Linked List Palindrome Check");
+
+        checkPalindromeUsingLinkedList("madam");
     }
 
 
@@ -127,6 +140,7 @@ public class PalindromeCheckerApp {
         }
 
     }
+
     // UC5: Stack Based Palindrome Checker
     public static void checkPalindromeUsingStack(String original) {
 
@@ -156,6 +170,7 @@ public class PalindromeCheckerApp {
             System.out.println("Not Palindrome");
 
     }
+
     // UC6: Queue + Stack Based Palindrome Check
     public static void checkPalindromeUsingQueueAndStack(String word) {
 
@@ -197,6 +212,7 @@ public class PalindromeCheckerApp {
             System.out.println("Result: NOT Palindrome");
 
     }
+
     // UC7: Deque-Based Optimized Palindrome Checker
     public static void checkPalindromeUsingDeque(String word) {
 
@@ -236,5 +252,62 @@ public class PalindromeCheckerApp {
 
     }
 
+    // UC8: Linked List Based Palindrome Checker
+    public static void checkPalindromeUsingLinkedList(String word) {
 
+        Node head = null;
+        Node tail = null;
+
+        for (int i = 0; i < word.length(); i++) {
+
+            Node newNode = new Node(word.charAt(i));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+
+        }
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+
+        }
+        Node firstHalf = head;
+        Node secondHalf = prev;
+        boolean isPalindrome = true;
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                isPalindrome = false;
+                break;
+
+            }
+
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+
+        }
+        System.out.println("Original String: " + word);
+        if (isPalindrome)
+            System.out.println("Result: Palindrome");
+        else
+            System.out.println("Result: NOT Palindrome");
+    }
 }
+
+
