@@ -67,10 +67,32 @@ class PalindromeCheckerApp {
 
         String word = "madam";
 
-        if(service.checkPalindrome(word))
+        if (service.checkPalindrome(word))
             System.out.println(word + " is Palindrome");
         else
             System.out.println(word + " is NOT Palindrome");
+
+        // UC12: Strategy Interface
+        System.out.println("\nUC12: Strategy Pattern Palindrome Check");
+
+        String word2 = "level";
+
+// choose strategy dynamically
+        PalindromeContext context = new PalindromeContext(new StackStrategy());
+
+        if (context.execute(word2))
+            System.out.println("Using StackStrategy: Palindrome");
+        else
+            System.out.println("Using StackStrategy: Not Palindrome");
+
+// switch algorithm
+        context = new PalindromeContext(new DequeStrategy());
+
+        if (context.execute(word2))
+            System.out.println("Using DequeStrategy: Palindrome");
+        else
+            System.out.println("Using DequeStrategy: Not Palindrome");
+
 
     }
 
@@ -124,7 +146,6 @@ class PalindromeCheckerApp {
         }
 
     }
-
 
     // UC4 Method: Char Array Two Pointer
     public static void checkPalindromeUsingCharArray(String original) {
@@ -330,6 +351,7 @@ class PalindromeCheckerApp {
         else
             System.out.println("Result: NOT Palindrome");
     }
+
     // UC9: Recursive Palindrome Checker
     public static boolean checkPalindromeRecursive(String word, int start, int end) {
 
@@ -344,6 +366,7 @@ class PalindromeCheckerApp {
         // Recursive call
         return checkPalindromeRecursive(word, start + 1, end - 1);
     }
+
     // UC10: Case-Insensitive & Space-Ignored Palindrome Checker
     public static void checkPalindromeIgnoreCaseAndSpaces(String input) {
 
@@ -377,6 +400,7 @@ class PalindromeCheckerApp {
         else
             System.out.println("Result: NOT Palindrome");
     }
+
     // UC11: Object-Oriented Palindrome Service
     static class PalindromeChecker {
 
@@ -398,4 +422,62 @@ class PalindromeCheckerApp {
             return true;
         }
     }
+
+    interface PalindromeStrategy {
+
+        boolean checkPalindrome(String word);
+    }
+
+    static class StackStrategy implements PalindromeStrategy {
+
+        public boolean checkPalindrome(String word) {
+
+            Stack<Character> stack = new Stack<>();
+
+            for (char c : word.toCharArray())
+                stack.push(c);
+
+            for (char c : word.toCharArray())
+                if (c != stack.pop())
+                    return false;
+
+            return true;
+        }
+    }
+
+    // Deque based strategy
+    static class DequeStrategy implements PalindromeStrategy {
+
+        public boolean checkPalindrome(String word) {
+
+            Deque<Character> deque = new LinkedList<>();
+
+            for (char c : word.toCharArray())
+                deque.addLast(c);
+
+            while (deque.size() > 1) {
+
+                if (deque.removeFirst() != deque.removeLast())
+                    return false;
+            }
+
+            return true;
+        }
+    }
+
+    // Strategy Context
+     static class PalindromeContext {
+
+        private PalindromeStrategy strategy;
+
+        public PalindromeContext(PalindromeStrategy strategy) {
+            this.strategy = strategy;
+        }
+
+        public boolean execute(String word) {
+            return strategy.checkPalindrome(word);
+        }
+    }
 }
+
+
