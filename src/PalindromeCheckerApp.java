@@ -46,10 +46,17 @@ public class PalindromeCheckerApp {
         System.out.println("\nUC7: Deque Based Palindrome Check");
         checkPalindromeUsingDeque("level");
 
-
         System.out.println("\nUC8: Linked List Palindrome Check");
-
         checkPalindromeUsingLinkedList("madam");
+
+        System.out.println("\nUC9: Recursive Palindrome Check");
+
+        String recursiveWord = "madam";
+
+        if (checkPalindromeRecursive(recursiveWord, 0, recursiveWord.length() - 1))
+            System.out.println("Result: Palindrome");
+        else
+            System.out.println("Result: NOT Palindrome");
     }
 
 
@@ -308,6 +315,22 @@ public class PalindromeCheckerApp {
         else
             System.out.println("Result: NOT Palindrome");
     }
+    // UC9: Recursive Palindrome Checker
+    public static boolean checkPalindromeRecursive(String word, int start, int end) {
+
+        // Base condition
+        if (start >= end)
+            return true;
+
+        // Compare characters
+        if (word.charAt(start) != word.charAt(end))
+            return false;
+
+        // Recursive call
+        return checkPalindromeRecursive(word, start + 1, end - 1);
+    }
+
+
 }
 
 
