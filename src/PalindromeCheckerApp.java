@@ -4,7 +4,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Deque;
 
-public class PalindromeCheckerApp {
+class PalindromeCheckerApp {
     static class Node {
         char data;
         Node next;
@@ -62,6 +62,16 @@ public class PalindromeCheckerApp {
         String sentence = "A man a plan a canal Panama";
 
         checkPalindromeIgnoreCaseAndSpaces(sentence);
+        System.out.println("\nUC11: Object-Oriented Palindrome Service");
+        PalindromeChecker service = new PalindromeChecker();
+
+        String word = "madam";
+
+        if(service.checkPalindrome(word))
+            System.out.println(word + " is Palindrome");
+        else
+            System.out.println(word + " is NOT Palindrome");
+
     }
 
 
@@ -367,8 +377,26 @@ public class PalindromeCheckerApp {
         else
             System.out.println("Result: NOT Palindrome");
     }
+    // UC11: Object-Oriented Palindrome Service
+    // UC11: Object-Oriented Palindrome Service
+    static class PalindromeChecker {
 
+        public boolean checkPalindrome(String word) {
 
+            int start = 0;
+            int end = word.length() - 1;
+
+            while (start < end) {
+
+                if (word.charAt(start) != word.charAt(end)) {
+                    return false;
+                }
+
+                start++;
+                end--;
+            }
+
+            return true;
+        }
+    }
 }
-
-
