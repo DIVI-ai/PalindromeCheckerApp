@@ -93,6 +93,34 @@ class PalindromeCheckerApp {
         else
             System.out.println("Using DequeStrategy: Not Palindrome");
 
+        System.out.println("\nUC13: Performance Comparison");
+
+        String testWord = "amanaplanacanalpanama";
+
+// Reverse method
+        long start = System.nanoTime();
+        checkPalindromeSimple(testWord);
+        long end = System.nanoTime();
+        System.out.println("Reverse Method Time: " + (end - start) + " ns");
+
+// Stack method
+        start = System.nanoTime();
+        checkPalindromeUsingStack(testWord);
+        end = System.nanoTime();
+        System.out.println("Stack Method Time: " + (end - start) + " ns");
+
+// Deque method
+        start = System.nanoTime();
+        checkPalindromeUsingDeque(testWord);
+        end = System.nanoTime();
+        System.out.println("Deque Method Time: " + (end - start) + " ns");
+
+// Recursive method
+        start = System.nanoTime();
+        checkPalindromeRecursive(testWord, 0, testWord.length() - 1);
+        end = System.nanoTime();
+        System.out.println("Recursive Method Time: " + (end - start) + " ns");
+
 
     }
 
