@@ -378,7 +378,6 @@ class PalindromeCheckerApp {
             System.out.println("Result: NOT Palindrome");
     }
     // UC11: Object-Oriented Palindrome Service
-    // UC11: Object-Oriented Palindrome Service
     static class PalindromeChecker {
 
         public boolean checkPalindrome(String word) {
