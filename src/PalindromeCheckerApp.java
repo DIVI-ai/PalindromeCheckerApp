@@ -57,6 +57,11 @@ public class PalindromeCheckerApp {
             System.out.println("Result: Palindrome");
         else
             System.out.println("Result: NOT Palindrome");
+        System.out.println("\nUC10: Case-Insensitive & Space-Ignored Palindrome");
+
+        String sentence = "A man a plan a canal Panama";
+
+        checkPalindromeIgnoreCaseAndSpaces(sentence);
     }
 
 
@@ -328,6 +333,39 @@ public class PalindromeCheckerApp {
 
         // Recursive call
         return checkPalindromeRecursive(word, start + 1, end - 1);
+    }
+    // UC10: Case-Insensitive & Space-Ignored Palindrome Checker
+    public static void checkPalindromeIgnoreCaseAndSpaces(String input) {
+
+        // Normalize string (remove spaces and convert to lowercase)
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        boolean isPalindrome = true;
+
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+
+                isPalindrome = false;
+                break;
+
+            }
+
+            start++;
+            end--;
+
+        }
+
+        System.out.println("Original String: " + input);
+        System.out.println("Normalized String: " + normalized);
+
+        if (isPalindrome)
+            System.out.println("Result: Palindrome");
+        else
+            System.out.println("Result: NOT Palindrome");
     }
 
 
